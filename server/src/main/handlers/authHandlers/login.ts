@@ -1,9 +1,9 @@
 import crypto from "crypto";
 import type { Request, Response } from "express";
-import { userExist } from "../../query/userExist";
-import { emailChecker } from "../../utils/emailChecker";
-import { sendMagicLink } from "../../utils/sendMagicLink";
-import { magicLinkTokenStore } from "../../utils/magicLinkTokenStore";
+import { userExist } from "../../../query/userExist";
+import { emailChecker } from "../../../utils/emailChecker";
+import { sendMagicLink } from "../../../utils/sendMagicLink";
+import { magicLinkTokenStore } from "../../../utils/magicLinkTokenStore";
 
 export async function login(req: Request, res: Response) {
   try {

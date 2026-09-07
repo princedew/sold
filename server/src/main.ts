@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import appRouter from "./main/router/router.js";
+import appRouter from "./main/router/authRouter.js";
 
 const app = express();
 const port = 5000;

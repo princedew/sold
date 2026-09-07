@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import type { Request, Response } from "express";
-import { checkToken } from "../../utils/checkToken";
-import { getUser } from "../../query/findUser";
+import { checkToken } from "../../../utils/checkToken";
+import { getUser } from "../../../query/findUser";
 
 export async function magicLink(req: Request, res: Response) {
   try {

@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { emailChecker } from "../../utils/emailChecker";
-import { createUser } from "../../query/createUser";
-import { userExist } from "../../query/userExist";
+import { emailChecker } from "../../../utils/emailChecker";
+import { createUser } from "../../../query/createUser";
+import { userExist } from "../../../query/userExist";
 
 export async function signUp(req: Request, res: Response) {
   try {
