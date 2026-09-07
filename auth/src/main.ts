@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import appRouter from "./router.js";
+import appRouter from "./main/router/router.js";
 
 const app = express();
 const port = 5000;
@@ -12,9 +12,11 @@ app.use(
   })
 );
 
+app.use(express.json());
+
 app.get("/", (req, res) => { res.send("app running...") });
 
-app.get("/api/v1", appRouter)
+app.use("/api/v1", appRouter)
 
 app.listen(port, () => { 
     console.log(`server running on port ${port}`);
