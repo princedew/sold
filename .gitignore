@@ -1,3 +1,10 @@
+.agents
+.claude
+.windsurf
+
+migrations
+generated
+
 node_modules
 package-lock.json
 .env
