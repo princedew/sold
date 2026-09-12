@@ -1,11 +1,10 @@
-.agents
-.claude
-.windsurf
+z.*
 
 migrations
 generated
 
 node_modules
 package-lock.json
+bun.lock
 .env
 .env-local
