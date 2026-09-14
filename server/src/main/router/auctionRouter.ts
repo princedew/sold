@@ -4,6 +4,7 @@ import { validate } from "../middlewares/reqValidationMiddleware";
 import { modifyAuction } from "../handlers/auctionHandlers/modifyAuction";
 import {
   createAuctionSchema,
+  AuctionIdSchema,
   modifyAuctionSchema,
 } from "../zodSchema/auctionSchema";
 import { deleteAuction } from "../handlers/auctionHandlers/deleteAuction";
@@ -14,19 +15,24 @@ import { authMiddleware } from "../middlewares/authMiddleware";
 const appRouter = Router();
 
 appRouter.get("/auctions", getAuctionByQuery);
-appRouter.get("/auctions/:auctionId", getAuctionById);
+appRouter.get("/auctions/:auctionId",validate(AuctionIdSchema), getAuctionById);
 appRouter.post(
   "/auctions",
-  authMiddleware,
   validate(createAuctionSchema),
+  authMiddleware,
   createAuction,
 );
 appRouter.patch(
   "/auctions/:auctionId",
-  authMiddleware,
   validate(modifyAuctionSchema),
+  authMiddleware,
   modifyAuction,
 );
-appRouter.delete("/auctions/:auctionId", authMiddleware, deleteAuction);
+appRouter.delete(
+  "/auctions/:auctionId",
+  validate(AuctionIdSchema),
+  authMiddleware,
+  deleteAuction,
+);
 
 export default appRouter;

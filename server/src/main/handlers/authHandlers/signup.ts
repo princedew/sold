@@ -6,6 +6,7 @@ import { userExist } from "../../../query/userExist";
 export async function signUp(req: Request, res: Response) {
   try {
     const { email, name } = req.body;
+    console.log(email, name);
     if (!email || !name) {
       return res
         .status(409)
@@ -24,7 +25,7 @@ export async function signUp(req: Request, res: Response) {
     if (!newUser) {
       return res
         .status(400)
-        .json({ success: true, error: "faild to create user" });
+        .json({ success: false, error: "faild to create user" });
     }
     return res.send({success:true, message: "signup successful"});
   } catch (error) {

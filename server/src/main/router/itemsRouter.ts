@@ -18,7 +18,7 @@ import { prisma } from "../../lib/prisma";
 
 const itemsRouter = Router();
 
-itemsRouter.get("/items", validate(getItemsByQuerySchema), getItemsByQuery);
+itemsRouter.get("/items", authMiddleware, validate(getItemsByQuerySchema), getItemsByQuery);
 itemsRouter.get("/items/:itemId", validate(getItemByIdSchema), getItemById);
 itemsRouter.post(
   "/items",
@@ -39,11 +39,5 @@ itemsRouter.delete(
   deleteItem,
 );
 
-itemsRouter.post("/additems", async (req, res) => {
-    console.log(req.body.items);
-    
-  const auctions = await prisma.auction.createMany({ data: req.body.items });
-  res.json({ auctions });
-});
 
 export default itemsRouter;

@@ -10,7 +10,7 @@ export const authMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
-  console.log("cookies :", req.cookies);
+  // console.log("cookies :", req.cookies);
   
   const token = req.cookies.token;
   if (!token) {
@@ -23,7 +23,7 @@ export const authMiddleware = (
     token,
     process.env.JWT_SECRET,
   ) as JwtPayloadWithUserId;
-  console.log("decoded :", decoded);
+  // console.log("decoded :", decoded);
   req.userId = decoded.userId as number;
   next();
 };

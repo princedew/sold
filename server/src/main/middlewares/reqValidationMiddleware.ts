@@ -8,25 +8,13 @@ export const validate = (schema: z.ZodType) => {
       body: req.body,
       query: req.query,
     });
-
     if (!result.success) {
       throw result.error;
     }
 
-    // if ("params" in result.data) {
-    //   req.params = result.data.params as typeof req.params;
-    // }
-
-    // if ("body" in result.data) {
-    //   req.body = result.data.body as typeof req.body;
-    // } else {
-    //   req.body = result.data as typeof req.body;
-    // }
-
-    // if ("query" in result.data) {
-    //   req.query = result.data.query as typeof req.query;
-    // }
-
+    req.body = result.data.body;
+    req.params = result.data.params;
+    // req.query = result.data.query;
     next();
   };
 };

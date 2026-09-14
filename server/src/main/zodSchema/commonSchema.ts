@@ -17,6 +17,6 @@ export const bidIdSchema = z.object({
     auctionId: z.coerce.number().int().positive(),
   }),
   query: z.object({
-    limit: z.coerce.number().int().positive().optional(),
+    limit: z.coerce.number().default(20),
   }),
 });

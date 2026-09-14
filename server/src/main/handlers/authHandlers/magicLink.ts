@@ -33,9 +33,15 @@ export async function magicLink(req: Request, res: Response) {
         .status(400)
         .json({ success: false, error: "jwt token not found" });
     }
+    // console.log("res.cookie :", res.cookie("token", jwtToken, {
+    //   httpOnly: true,
+    //   // secure: process.env.NODE_ENV === "development" ? false : true,
+    //   sameSite: "lax",
+    //   maxAge: 7 * 24 * 60 * 60 * 1000,
+    // }))
     res.cookie("token", jwtToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });

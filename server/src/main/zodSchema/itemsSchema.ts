@@ -24,7 +24,7 @@ export const modifyItemSchema = z.object({
 export const getItemsByQuerySchema = z.object({
   query: z.object({
     search: z.string().trim().optional(),
-    page: z.coerce.number().int().positive().default(1),
+    page: z.coerce.number().int().default(1),
   }),
 });
 
