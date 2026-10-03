@@ -3,17 +3,13 @@ import type { Request, Response } from "express";
 import { userExist } from "../../../../packages/query/userExist";
 import { sendMagicLink } from "../../../../packages/utils/sendMagicLink";
 import { magicLinkTokenStore } from "../../../../packages/utils/magicLinkTokenStore";
+import { AppError } from "@packages/middlewares/errorMiddleware";
 
 export async function login(req: Request, res: Response) {
   const { email } = req.body;
-  if (!email) {
-    return res
-      .status(409)
-      .json({ success: false, error: "missing required data" });
-  }
   const isExist: boolean = await userExist(email);
   if (!isExist) {
-    return res.status(409).json({ success: false, error: "user not exist" });
+    throw new AppError("user not exist", 400);
   }
 
   const token = crypto.randomBytes(32).toString("hex");
