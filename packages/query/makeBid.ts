@@ -1,7 +1,7 @@
 import { prisma } from "../lib/prisma";
 import { queueConfig } from "../queue/config";
 import { JOB_NAME } from "../queue/jobNames";
-import { bidQueue } from "../queue/queue";
+import { bidQueue, databaseQueue } from "../queue/queue";
 
 export const returnReason = [
   "bid is lesser than minimum required bid",
@@ -48,11 +48,11 @@ export const makeBid = async (
       queueConfig,
     );
 
-    // databaseQueue.add(
-    //   JOB_NAME.UPDATE_BID_IN_DB,
-    //   { userId: userId, auctionId: auctionId, bid: bid },
-    //   queueConfig,
-    // );
+    databaseQueue.add(
+      JOB_NAME.RGISTER_BID,
+      { userId: userId, auctionId: auctionId, bid: bid },
+      queueConfig,
+    );
 
     return bidCreation;
   });
