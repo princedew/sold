@@ -61,10 +61,21 @@ enum TransactionType {
   PLATFORM_FEE
 }
 
+model Session {
+  id                 Int      @id @default(autoincrement())
+  userId             Int
+  hashedRefreshToken String
+  expireIn           DateTime
+  revokeAt           DateTime?
+  createdAt          DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  password  String   
+  password  String
   name      String
   createdAt DateTime @default(now())
 
@@ -81,6 +92,7 @@ model User {
   escrowsSeller        Escrow[]      @relation("EscrowSeller")
   transactionsFromUser Transaction[] @relation("from")
   transactionsToUser   Transaction[] @relation("to")
+  sessions             Session[]
 }
 
 model Address {

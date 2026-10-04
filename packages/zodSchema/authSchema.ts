@@ -11,19 +11,7 @@ export const signupSchema = {
 export const loginSchema = {
   body: z.object({
     email: z.email(),
-  }),
-};
-
-export const loginPwasswordSchema = {
-  body: z.object({
-    email: z.email(),
     password: z.string().trim().min(2).max(20),
   }),
 };
 
-export const magicLinkSchema = {
-  body: z.object({
-    email: z.email(),
-    token: z.string(),
-  }),
-};

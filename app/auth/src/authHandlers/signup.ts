@@ -4,7 +4,21 @@ import type { Request, Response } from "express";
 import { createUser } from "@packages/query/createUser.js";
 import { userExist } from "@packages/query/userExist.js";
 
-export async function signUp(req: Request, res: Response) {
+type SignupRequest = {
+  email: string;
+  name: string;
+  password: string;
+};
+
+type SignupResponse = {
+  success: boolean;
+  message: string;
+};
+
+export async function signUp(
+  req: Request<SignupRequest>,
+  res: Response<SignupResponse>,
+): Promise<Response<SignupResponse>> {
   const { email, name, password } = req.body;
 
   const isExist: boolean = await userExist(email);
