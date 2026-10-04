@@ -1,5 +1,6 @@
 import { ACCESS_TKN_SIGN_OPTION_IN_MIN } from "@/config/config";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 function log(str: string, fileName: string, val: any): void {
   console.log(`\n> ${str} [${fileName}]: ${val}\n`);

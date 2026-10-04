@@ -7,8 +7,7 @@ import { prisma } from "@packages/lib/prisma.js";
 
 const app = express();
 
-const port = process.env.AUTH_PORT || 8001;
-const url = process.env.BASE_URL || "/api/auth";
+const port = process.env.AUTH_PORT ?? 8001;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -16,7 +15,7 @@ app.use(logger);
 
 app.use("/health", (req, res) => res.json({ success: true }));
 
-app.use(url, authRouter);
+app.use("/api/auth", authRouter);
 
 app.use(errorHandler);
 

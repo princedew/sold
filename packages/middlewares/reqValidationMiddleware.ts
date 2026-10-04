@@ -27,7 +27,7 @@ export const validate = (schemaObj: Partial<SchemaObjectType>) => {
         }
       }
     }
-    if (Object.keys(issues).length !== 0) {
+    if (Object.keys(issues).length === 0) {
       next();
     } else {
       res
