@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(logger);
 
-app.use("/", (req,res) => res.send("getting the slash"));
+app.use("/health", (req, res) => res.json({ success: true }));
 
 app.use(url, authRouter);
 
