@@ -1,6 +1,6 @@
 import {Queue} from "bullmq";
 import { QUEUE_NAME } from "./queueName";
-import { redisConnection } from "../config/redis";
+import { redis as redisConnection } from "../lib/redis";
 
 export const bidQueue = new Queue(QUEUE_NAME.BID, { connection: redisConnection });
 export const databaseQueue = new Queue(QUEUE_NAME.DATABASE, { connection: redisConnection });

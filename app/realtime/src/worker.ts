@@ -1,7 +1,7 @@
 import { Worker, type Job } from "bullmq";
-import { redisConnection } from "../../../packages/config/redis";
-import { QUEUE_NAME } from "../../../packages/queue/queueName";
-import { JOB_NAME } from "../../../packages/queue/jobNames";
+import { redis as redisConnection } from "@packages/lib/redis";
+import { QUEUE_NAME } from "@packages/queue/queueName";
+import { JOB_NAME } from "@packages/queue/jobNames";
 import { registry } from "./main";
 
 export default function redisWorkerForRealtimeServices() {
