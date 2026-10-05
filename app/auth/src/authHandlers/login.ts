@@ -5,6 +5,7 @@ import {
   REFRESH_TOKEN_EXPIRES_IN_MS,
   REFRESH_TKN_COOKIE_CONFIG,
 } from "../config/config";
+import { redis } from "@packages/lib/redis";
 import { createSession } from "@packages/query/session";
 import { getUser } from "@packages/query/findUser";
 import { AppError } from "@packages/middlewares/errorMiddleware";
@@ -48,13 +49,32 @@ export async function login(
     throw new AppError("Failed to create access token", 400);
   }
 
-  const refreshToken = createRefreshToken();
+  const refreshToken = createRefreshToken(user.id, secret);
+  if (!refreshToken) {
+    throw new AppError("Failed to create refresh token", 409);
+  }
+
   const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
 
-  await createSession(
+  const isSessionCreated = await createSession(
     user.id,
     hashedRefreshToken,
     Date.now() + REFRESH_TOKEN_EXPIRES_IN_MS,
+  );
+
+  if (!isSessionCreated) {
+    throw new AppError("Failed to create session", 400);
+  }
+
+  redis.set(
+    String(user.id),
+    JSON.stringify({
+      userId: user.id,
+      hashedRefreshToken,
+      expireIn: Date.now() + REFRESH_TOKEN_EXPIRES_IN_MS,
+    }),
+    "EX",
+    3600,
   );
 
   res.cookie("refreshToken", refreshToken, REFRESH_TKN_COOKIE_CONFIG);

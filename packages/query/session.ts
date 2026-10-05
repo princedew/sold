@@ -14,9 +14,10 @@ export async function createSession(
   });
 }
 
-export async function findSessions() {
-  return await prisma.session.findMany({
-    where: { revokeAt: null },
+export async function findSession(userId: number) {
+  return await prisma.session.findFirst({
+    where: { userId, revokeAt: null },
+    orderBy: { createdAt: "desc" },
   });
 }
 
